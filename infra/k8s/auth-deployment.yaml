@@ -24,6 +24,7 @@ spec:
   selector:
     app: auth-pod
   ports:
-    - protocol: TCP
+    - name: auth
+      protocol: TCP
       port: 3000
       targetPort: 3000
