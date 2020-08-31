@@ -1,0 +1,18 @@
+apiVersion: skaffold/v2alpha3
+kind: Config
+deploy:
+  kubectl:
+    manifests:
+      - ./infra/k8s/*  # config files we want to load into our cluster
+build:
+  local:
+    push: false # whe we build image dont push to docker hub
+  artifacts: # things that are going to be built 
+    - image: devbasanta/auth
+      context: auth # folder name containing  code for image devbasanta/auth
+      docker:
+        dockerfile: Dockerfile 
+      sync: # handle change in auth folder
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .  # corresponding path 

@@ -6,15 +6,15 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app:auth-pod
-    template:
-      metadata:
+      app: auth-pod
+  template:
+    metadata:
         labels:
           app: auth-pod
-      spec:
-        containers:
-          - name: auth-container
-            image: devbasanta/auth
+    spec:
+      containers:
+        - name: auth-container
+          image: devbasanta/auth
 ---
 apiVersion: v1
 kind: Service
