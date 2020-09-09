@@ -14,5 +14,5 @@ build:
         dockerfile: Dockerfile 
       sync: # handle change in auth folder
         manual:
-          - src: 'src/**/*.ts'
+          - src: 'src/***/*.ts'
             dest: .  # corresponding path 
