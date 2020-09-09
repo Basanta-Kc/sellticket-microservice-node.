@@ -10,7 +10,7 @@ spec:
     - host: ticketing.dev
       http:
         paths:
-          - path: /api/users/?(.*)
+          - path: /api/auth/?(.*)
             backend:
               serviceName: auth-cluster-ip-service
               servicePort: 3000

@@ -1,11 +1,14 @@
 import express from 'express'
+import AuthRoutes from './routes/auth.route'
 
 const app = express()
 app.use(express.json())
 
-app.get('/api/users/currentuser', (req, res) => res.send('hello there'))
+// Mount Auth Routes
+app.use('/api/auth', AuthRoutes)
 
 app.listen(3000, () => {
-  console.log('dfaasdf')
+  console.log('helloooo')
+
 	console.log('Listening on port: 3000')
 })
