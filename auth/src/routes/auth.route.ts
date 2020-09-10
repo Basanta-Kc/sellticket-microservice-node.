@@ -1,4 +1,5 @@
 import express from 'express'
+import 'express-async-errors'
 import {
 	signIn,
 	signUp,
@@ -13,4 +14,4 @@ router.post('/signup', signUp)
 router.post('/signout', signOut)
 router.get('/user', getCurrentUser)
 
-export default router 
+export default router
