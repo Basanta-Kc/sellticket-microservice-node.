@@ -1,5 +1,6 @@
 import express from 'express'
-import AuthRoutes from './routes/auth.route'
+import mongoose from 'mongoose'
+import AuthRoutes from './routes/auth.routes'
 import { errorHandler } from './middlewares/error-handler'
 import { NotFoundError } from './errors/not-found-error'
 
@@ -14,6 +15,26 @@ app.all('*', async (req, res) => {
 
 app.use(errorHandler)
 
-app.listen(3000, () => {
-	console.log('Listening on port: 3000')
-})
+const start = async () => {
+	try {
+		await mongoose.connect(
+			'mongodb://auth-mongodb-cluster-ip-service:27017/auth',
+			{
+				useNewUrlParser: true,
+				useUnifiedTopology: true,
+				useCreateIndex: true,
+			}
+		)
+		console.log('Connected to MongoDb')
+	} catch (err) {
+		console.error(err)
+	}
+
+	app.listen(3000, () => {
+		console.log('Listening on port 3000')
+	})
+}
+
+start()
+
+
