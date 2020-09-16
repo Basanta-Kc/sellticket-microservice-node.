@@ -17,19 +17,7 @@ export async function signIn(req: Request, res: Response) {
 		throw new BadRequestError('Invalid Credentials')
 	}
 
-	// Generate JWT
-	const userJwt = jwt.sign(
-		{
-			id: existingUser.id,
-			email: existingUser.email,
-		},
-		process.env.JWT_KEY!
-	)
-
-	// Store it on session object
-	req.session = {
-		jwt: userJwt,
-	}
+	setJWT(req, existingUser)
 
 	res.status(200).send(existingUser)
 }
@@ -55,8 +43,8 @@ export function signOut(req: Request, res: Response) {
 	res.send({})
 }
 
-export function getCurrentUser(req: Request, res: Response) {
-	res.send({ currentUser: req.currentUser || null })
+export function getAuthUser(req: Request, res: Response) {
+	res.send({ authUser: req.authUser || null })
 }
 
 // utility function for this controller
