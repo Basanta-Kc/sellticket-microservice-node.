@@ -17,7 +17,7 @@ import {
 const router = express.Router()
 
 router.post('/signout', signOut)
-router.get('/user', currentUser, requireAuth, getCurrentUser)
+router.get('/user', currentUser, getCurrentUser)
 router.post('/signin', singInValidation, signIn)
 router.post('/signup', singUpValidation, signUp)
 
