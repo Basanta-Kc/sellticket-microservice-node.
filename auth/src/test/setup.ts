@@ -1,8 +1,17 @@
+import request from 'supertest'
 import { MongoMemoryServer } from 'mongodb-memory-server'
 import mongoose from 'mongoose'
 import { app } from '../app'
 
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000;
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000
+
+declare global {
+	namespace NodeJS {
+		interface Global {
+			getCookie(): Promise<string[]>
+		}
+	}
+}
 
 let mongo: MongoMemoryServer
 
@@ -27,3 +36,12 @@ afterAll(async () => {
 	await mongo.stop()
 	await mongoose.connection.close()
 })
+
+global.getCookie = async () => {
+	const res = await request(app)
+		.post('/api/auth/signup')
+		.send({ email: 'test@test.com', password: 'password' })
+		.expect(201)
+	console.log(res.get('Set-Cookie'))
+	return res.get('Set-Cookie')
+}

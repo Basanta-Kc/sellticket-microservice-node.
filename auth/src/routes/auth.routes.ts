@@ -4,11 +4,9 @@ import {
 	signIn,
 	signUp,
 	signOut,
-	getCurrentUser,
+	getAuthUser,
 } from '../controllers/auth.controller'
-import { currentUser } from '../middlewares/current-user'
-import { requireAuth } from '../middlewares/require-auth'
-import { validateRequest } from '../middlewares/validate-requests'
+import { authUser } from '../middlewares/auth-user'
 import {
 	singInValidation,
 	singUpValidation,
@@ -17,7 +15,7 @@ import {
 const router = express.Router()
 
 router.post('/signout', signOut)
-router.get('/user', currentUser, getCurrentUser)
+router.get('/user', authUser, getAuthUser)
 router.post('/signin', singInValidation, signIn)
 router.post('/signup', singUpValidation, signUp)
 
