@@ -16,3 +16,11 @@ build:
         manual:
           - src: 'src/***/*.ts'
             dest: .  # corresponding path 
+    - image: devbasanta/client
+      context: client # folder name containing  code for image devbasanta/auth
+      docker:
+        dockerfile: Dockerfile 
+      sync: # handle change in auth folder
+        manual:
+          - src: '***/*.js'
+            dest: .  # corresponding path 
