@@ -1,2 +1,2 @@
-const a = () => <h1>helo</h1>
+const a = () => <h1>heloo</h1>
 export default a
