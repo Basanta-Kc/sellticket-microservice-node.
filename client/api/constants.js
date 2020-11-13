@@ -1,6 +1,6 @@
 // BASE URLs
 export const SERVER_URL =
-	'http://ingress-nginx-controller.ingress-nginx.svc.cluster.local'
+  'http://ingress-nginx-controller.kube-system.svc.cluster.local'
 
 // AUTH ROUTES
 export const AUTH_USER = '/api/auth/user'
