@@ -1,14 +1,14 @@
 import buildClient from '../api/build-client'
+import { AUTH_USER } from '../api/constants'
 
 const LandingPage = ({ authUser }) => {
 	return <h1>You are {authUser ? 'signedin' : 'signedout'}</h1>
 }
 
-LandingPage.getInitialProps = async (context) => {
+LandingPage.getInitialProps = async (ctx) => {
 	try {
-		const client = buildClient(context)
-    const { data } = await client.get('/api/auth/user')
-    console.log(data)
+		const client = buildClient(ctx)
+    const { data } = await client.get(AUTH_USER)
 		return data
   } catch (error) {
     console.log(error)

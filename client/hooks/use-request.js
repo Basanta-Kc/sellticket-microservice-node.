@@ -6,10 +6,10 @@ const useRequest = ({ url, method, body, onSuccess }) => {
 	const doRequest = async () => {
     try {
       //setErrors(null)
-      const { data } = await axios[method](url, body)
-      if (onSuccess) onSuccess(data)
-			return data
-    } catch (error) {
+      const res = await axios[method](url, body)
+      if (onSuccess) onSuccess(res.data)
+			return res.data 
+		} catch (error) {
 			setErrors(
 				<div className='alert alert-danger'>
 					<ul className='my-0'>
