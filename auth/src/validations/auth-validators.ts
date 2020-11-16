@@ -1,5 +1,5 @@
 import { body } from 'express-validator'
-import { validateRequest } from '../middlewares/validate-requests'
+import { validateRequest } from '@arshantechnology/common'
 
 export const singUpValidation = [
 	body('email').isEmail().withMessage('Email must be valid'),

@@ -6,7 +6,7 @@ import {
 	signOut,
 	getAuthUser,
 } from '../controllers/auth.controller'
-import { authUser } from '../middlewares/auth-user'
+import { authUser } from '@arshantechnology/common'
 import {
 	singInValidation,
 	singUpValidation,

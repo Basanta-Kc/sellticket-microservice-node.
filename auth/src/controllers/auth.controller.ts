@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import jwt from 'jsonwebtoken'
 import { Password } from '../services/password.service'
-import { BadRequestError } from '../errors/bad-request-error'
+import { BadRequestError } from '@arshantechnology/common'
 import { User, UserDoc } from '../models/User'
 
 export async function signIn(req: Request, res: Response) {
