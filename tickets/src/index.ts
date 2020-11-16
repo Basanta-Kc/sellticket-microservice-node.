@@ -6,7 +6,7 @@ const start = async () => {
 
 	try {
 		await mongoose.connect(
-			'mongodb://tickets-mongodb-cluster-ip-service:27017/auth',
+			'mongodb://auth-mongodb-cluster-ip-service:27017/auth',
 			{
 				useNewUrlParser: true,
 				useUnifiedTopology: true,

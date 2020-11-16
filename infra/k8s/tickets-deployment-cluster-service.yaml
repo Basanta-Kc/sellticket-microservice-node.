@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tickets-deployment 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tickets-pod
+  template:
+    metadata:
+        labels:
+          app: tickets-pod
+    spec:
+      containers:
+        - name: tickets-container
+          image: devbasanta/tickets
+          env:
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tickets-cluster-ip-service
+spec:
+  selector:
+    app: tickets-pod
+  ports:
+    - name: tickets
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
