@@ -2,8 +2,8 @@ import express from 'express'
 import cookieSession from 'cookie-session'
 
 import AuthRoutes from './routes/auth.routes'
-import { errorHandler } from './middlewares/error-handler'
-import { NotFoundError } from './errors/not-found-error'
+import { errorHandler } from '@arshantechnology/common'
+import { NotFoundError } from '@arshantechnology/common'
 
 const app = express()
 app.set('trust proxy', true)
