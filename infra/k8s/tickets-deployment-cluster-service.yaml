@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tickets-deployment 
+  name: tickets-deployment
 spec:
   replicas: 1
   selector:
@@ -9,13 +9,15 @@ spec:
       app: tickets-pod
   template:
     metadata:
-        labels:
-          app: tickets-pod
+      labels:
+        app: tickets-pod
     spec:
       containers:
         - name: tickets-container
           image: devbasanta/tickets
           env:
+            - name: MONGO_URI
+              value: 'mongodb://tickets-mongodb-cluster-ip-service:27017/tickets'
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:
