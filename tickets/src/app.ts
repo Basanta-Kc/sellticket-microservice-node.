@@ -1,8 +1,8 @@
 import express from 'express'
 import cookieSession from 'cookie-session'
 
-// import AuthRoutes from './routes/auth.routes'
-import { errorHandler } from '@arshantechnology/common'
+import TicketsRoutes from './routes/tickets.routes'
+import { authUser, errorHandler } from '@arshantechnology/common'
 import { NotFoundError } from '@arshantechnology/common'
 
 const app = express()
@@ -15,7 +15,8 @@ app.use(
 	})
 )
 
-//app.use('/api/auth', AuthRoutes)
+app.use(authUser)
+app.use(TicketsRoutes)
 
 app.all('*', async (req, res) => {
 	throw new NotFoundError()

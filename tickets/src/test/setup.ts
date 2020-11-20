@@ -1,13 +1,14 @@
 import request from 'supertest'
 import { MongoMemoryServer } from 'mongodb-memory-server'
 import mongoose from 'mongoose'
+import jwt from 'jsonwebtoken'
 import { app } from '../app'
 
-//jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000
 declare global {
   namespace NodeJS {
     interface Global {
-      getCookie(): Promise<string[]>
+      getCookie(): string[]
     }
   }
 }
@@ -40,10 +41,23 @@ afterAll(async () => {
   }
 })
 
-global.getCookie = async () => {
-  const res = await request(app)
-    .post('/api/auth/signup')
-    .send({ email: 'test@test.com', password: 'password' })
-    .expect(201)
-  return res.get('Set-Cookie')
+global.getCookie = () => {
+  // It was fine when we were in auth service
+  // since we had acces to signup route.
+  // in ticket service we don't have acces so we need to fake auth
+  // const res = await request(app)
+  //   .post('/api/auth/signup')
+  //   .send({ email: 'test@test.com', password: 'password' })
+  //   .expect(201)
+  // return res.get('Set-Cookie')
+
+  // Buil a JWT payload
+  const payload = { id: '23x34st4', email: 'test@email.com' }
+
+  // create  JWT
+  const token = jwt.sign(payload, process.env.JWT_KEY!)
+  const sessionJSON = JSON.stringify({ jwt: token })
+  const base64 = Buffer.from(sessionJSON).toString('base64')
+
+  return [`express:sess=${base64}`]
 }
