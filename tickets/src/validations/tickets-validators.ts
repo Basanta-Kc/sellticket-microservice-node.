@@ -7,9 +7,7 @@ export const createTicketValidation = [
     .trim()
     .not()
     .isEmpty()
-    .withMessage('Email must be valid'),
-  body('price')
-    .isFloat({ gt: 0 })
-    .withMessage('Price must be specifed and be positive number'),
+    .withMessage('Title must be specified'),
+  body('price').isFloat({ gt: 0 }).withMessage('Price must be specifed.'),
   validateRequest,
 ]

@@ -2,6 +2,7 @@ import { StatusCodes } from '@arshantechnology/common'
 import request from 'supertest'
 import { app } from '../../app'
 import { TICKET_END_POINT } from '../../constants'
+import { Ticket } from '../../models/Ticket'
 
 it('should have post request /api/tickets to create ticket', async () => {
   const response = await request(app).post(TICKET_END_POINT).send({})
@@ -49,8 +50,16 @@ it('should return an error if invalid price is provided', async () => {
 })
 
 it('should create a ticket with valid input. (new record on db)', async () => {
-  await request(app)
+  let tickets = await Ticket.find({})
+  expect(tickets.length).toEqual(0)
+
+  const res = await request(app)
     .post(TICKET_END_POINT)
+    .set('Cookie', global.getCookie())
     .send({ title: 'The Script', price: 30.0 })
-    .expect(201)
+    .expect(StatusCodes.CREATED)
+
+  tickets = await Ticket.find({})
+
+  expect(tickets.length).toEqual(1)
 })
