@@ -1,6 +1,7 @@
 import { MongoMemoryServer } from 'mongodb-memory-server'
 import mongoose from 'mongoose'
 import jwt from 'jsonwebtoken'
+import { getMongoId } from '../utils'
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000
 declare global {
@@ -50,7 +51,7 @@ global.getCookie = () => {
   // return res.get('Set-Cookie')
 
   // Buil a JWT payload
-  const payload = { id: '23x34st4', email: 'test@email.com' }
+  const payload = { id: getMongoId(), email: 'test@email.com' }
 
   // create  JWT
   const token = jwt.sign(payload, process.env.JWT_KEY!)

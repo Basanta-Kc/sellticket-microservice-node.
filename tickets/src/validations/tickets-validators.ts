@@ -8,6 +8,6 @@ export const createTicketValidation = [
     .not()
     .isEmpty()
     .withMessage('Title must be specified'),
-  body('price').isFloat({ gt: 0 }).withMessage('Price must be specifed.'),
+  body('price').isFloat({ gt: 0 }).not().isEmpty().withMessage('Price must be specifed.'),
   validateRequest,
 ]

@@ -6,9 +6,9 @@ import { Ticket } from '../../models/Ticket'
 import { getMongoId } from '../../utils'
 
 describe('Test for getting a ticket', () => {
-  it('should n return 404 if we dont find ticket for given id', async () => {
+  it('should return 404 if we dont find ticket for given id', async () => {
     await request(app)
-      .get(`${TICKET_END_POINT}/${getMongoId()}`)
+      .get(TICKET_END_POINT + getMongoId())
       .send({})
       .expect(StatusCodes.NOT_FOUND)
   })
@@ -23,11 +23,11 @@ describe('Test for getting a ticket', () => {
       .expect(StatusCodes.CREATED)
 
     const ticketRes = await request(app)
-      .get(`${TICKET_END_POINT}/${resTicket.id}`)
+      .get(TICKET_END_POINT + resTicket.id)
       .send()
       .expect(StatusCodes.OK)
 
-    expect(resTicket.title).toEqual(ticket.title)
-    expect(resTicket.price).toEqual(ticket.price)
+    expect(resTicket.title).toEqual(ticketRes.body.title)
+    expect(resTicket.price).toEqual(ticketRes.body.price)
   })
 })
