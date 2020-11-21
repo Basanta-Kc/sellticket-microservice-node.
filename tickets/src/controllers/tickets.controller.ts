@@ -1,5 +1,9 @@
 import { Request, Response } from 'express'
-import { BadRequestError, StatusCodes } from '@arshantechnology/common'
+import {
+  BadRequestError,
+  NotFoundError,
+  StatusCodes,
+} from '@arshantechnology/common'
 import { Ticket } from '../models/Ticket'
 
 export async function createTicket(req: Request, res: Response) {
@@ -14,4 +18,14 @@ export async function createTicket(req: Request, res: Response) {
   await ticket.save()
 
   res.status(StatusCodes.CREATED).send(ticket)
+}
+
+export async function getTicket(req: Request, res: Response) {
+  const ticket = await Ticket.findById(req.params.id)
+
+  if (!ticket) {
+    throw new NotFoundError()
+  }
+
+  res.send(ticket)
 }
